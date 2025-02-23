@@ -19,18 +19,30 @@ const SignUpPage = () => {
 
   const handleSignUp = async (e) => {
     e.preventDefault();
-    if (!agree) return;
+  
+    // Trim values to remove extra spaces
+    if (!firstName.trim() || !lastName.trim() || !email.trim() || !phone.trim() || !password.trim()) {
+      alert("All fields are not required.");
+      return;
+    }
+  
+    if (!agree) {
+      alert("You must agree to the Terms & Conditions.");
+      return;
+    }
+  
     try {
-      await signup(email, password, `${firstName} ${lastName}`);
+      await signup(email, password, firstName, lastName, phone);
       navigate("/verify-email");
     } catch (error) {
       console.log(error);
     }
   };
+  
 
   return (
     <motion.div animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="space-y-6">
-      <h2 className="text-2xl font-bold">Create an account</h2>
+      <h2 className="text-2xl font-bold">Create and account</h2>
       <p className="text-gray-600">
         Already have an account?{" "}
         <Link to="/login" className="text-blue-600">Log in</Link>
@@ -123,6 +135,7 @@ const SignUpPage = () => {
           {isLoading ? <Loader className="w-5 h-5 animate-spin mx-auto" /> : "Create account"}
         </button>
       </form>
+
 
       <div className="flex items-center">
         <div className="flex-grow border-t border-gray-400"></div>

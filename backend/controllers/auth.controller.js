@@ -13,11 +13,14 @@ import {
 import { User } from "../models/user.model.js";
 
 export const signup = async (req, res) => {
-	const { email, password, firstName, lastName, phone } = req.body;
+	const { email, password, firstName, lastName, phone} = req.body;
 
 	try {
 		// Check if all required fields are provided
 		if (!email || !password || !firstName || !lastName || !phone) {
+			console.log("Missing Fields:", { email, password, firstName, lastName, phone });
+			console.log("Request Body:", req.body);
+
 			throw new Error("All fields are required");
 		}
 
@@ -85,7 +88,7 @@ export const verifyEmail = async (req, res) => {
 		user.verificationTokenExpiresAt = undefined;
 		await user.save();
 
-		await sendWelcomeEmail(user.email, user.name);
+		await sendWelcomeEmail(user.email, `${user.firstName} ${user.lastName}`);
 
 		res.status(200).json({
 			success: true,

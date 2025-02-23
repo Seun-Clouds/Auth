@@ -10,6 +10,7 @@ import { Toaster } from "react-hot-toast";
 import { useAuthStore } from "./store/authStore";
 import { useEffect, useState } from "react"; // ✅ FIXED IMPORT
 
+
 // Protected routes
 const ProtectedRoute = ({ children }) => {
   const { isAuthenticated, user } = useAuthStore();
@@ -49,15 +50,11 @@ function App() {
       ></div>
 
       {/* Right Side - Authentication Forms */}
-      <div
-        className={`flex-1 md:w-1/2 flex flex-col items-left justify-center px-8 md:px-16 py-10 transition-all duration-500 ${
-          isLoading ? "bg-[#3498db]" : "bg-[#D7D6FF]"
-        }`}
-      >
-        {/* Logo */}
-        <div className="flex justify-center mt-[-40px] mb-20">
-          <img src="/MoniPhundlogo.svg" alt="Logo" className="h-[110px] w-[114px]" />
-        </div>
+      <div className="flex-1 md:w-1/2 flex flex-col items-left justify-center px-8 md:px-16 py-10 bg-[#D7D6FF]">
+    {/* Logo */}
+    <div className="flex justify-center mt-[-40px] mb-20">
+      <img src="/MoniPhundlogo.svg" alt="Logo" className="h-[110px] w-[114px]" />
+    </div>
 
         <Routes>
           <Route
